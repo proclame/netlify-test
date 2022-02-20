@@ -34,7 +34,8 @@ exports.handler = async function(event, context, handler){
     return {
         statusCode: 200,
         headers: {
-            'Content-type': 'image/png'
+            'Content-Type': 'image/png',
+            'Cache-Control': 'private, max-age=2592000, immutable',
         },
         body: result.toString('base64'),
         isBase64Encoded: true
