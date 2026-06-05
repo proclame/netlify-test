@@ -1,18 +1,49 @@
-# Up and Running with Serverless Functions (Jamstack Explorers)
+# Barcode API
 
-Learn how to use serverless functions in less than 30 minutes!
+API-only Netlify service that returns barcode and QR code PNG images.
 
-📼: [Free Video Course](https://explorers.netlify.com/learn/up-and-running-with-serverless-functions/)
+## Local Development
 
-## 📚 Resources
+```bash
+npm install
+npm run dev
+```
 
-| Lesson                                                                                                                                                                                                | Start Branch                                                                                              | End Branch                                                                                              |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| [Introduction with Serverless Functions](https://explorers.netlify.com/learn/up-and-running-with-serverless-functions/introduction-with-serverless-functions)                                         | -                                                                                                         | -                                                                                                       |
-| [Project Setup with Serverless Functions](https://explorers.netlify.com/learn/up-and-running-with-serverless-functions/project-setup-with-serverless-functions)                                       | [Start Code](https://github.com/netlify/explorers-up-and-running-with-serverless-functions/tree/02-begin) | [End Code](https://github.com/netlify/explorers-up-and-running-with-serverless-functions/tree/02-end)   |
-| [Create Your First Serverless Function](https://explorers.netlify.com/learn/up-and-running-with-serverless-functions/create-your-first-serverless-function)                                           | [Start Code](https://github.com/netlify/explorers-up-and-running-with-serverless-functions/tree/03-begin) | [End Code](https://github.com/netlify/explorers-up-and-running-with-serverless-functions/tree/03-end)   |
-| [Integrate with a Third Party API with Serverless Functions](https://explorers.netlify.com/learn/up-and-running-with-serverless-functions/integrate-with-a-third-party-api-with-serverless-functions) | [Start Code](https://github.com/netlify/explorers-up-and-running-with-serverless-functions/tree/04-begin) | [End Code](https://github.com/netlify/explorers-up-and-running-with-serverless-functions/tree/04-end) |
-| [Deploying Serverless Functions](https://explorers.netlify.com/learn/up-and-running-with-serverless-functions/deploying-serverless-functions)                                                         | -                                                                                                         | -                                                                                                       |
-| [Customizing the Request with Serverless Functions](https://explorers.netlify.com/learn/up-and-running-with-serverless-functions/customizing-the-request-with-serverless-functions)                   | [Start Code](https://github.com/netlify/explorers-up-and-running-with-serverless-functions/tree/06-begin) | [End Code](https://github.com/netlify/explorers-up-and-running-with-serverless-functions/tree/06-end)   |
-| [The Power of Atomic Serverless Functions](https://explorers.netlify.com/learn/up-and-running-with-serverless-functions/the-power-of-atomic-serverless-functions)                                     | -                                                                                                         | -                                                                                                       |
-| [Next Steps with Serverless Functions](https://explorers.netlify.com/learn/up-and-running-with-serverless-functions/next-steps-with-serverless-functions)                                             | -                                                                                                         | -                                                                                                       |
+The local API runs at:
+
+```text
+http://localhost:8888/
+```
+
+## Usage
+
+Generate a Code 128 barcode:
+
+```text
+http://localhost:8888/?content=hello&type=code128&includetext=true
+```
+
+Generate a QR code containing a URL with its own query parameters:
+
+```text
+http://localhost:8888/?type=qrcode&content=https%3A%2F%2Fexample.com%2Fpage%3Fa%3D1%26b%3D2&scale=5&padding=10
+```
+
+The response is a PNG image.
+
+## Query Parameters
+
+| Parameter | Default | Description |
+| --- | --- | --- |
+| `type` | `code128` | Barcode type passed to `bwip-js`, such as `code128`, `code39`, `ean13`, or `qrcode`. |
+| `content` | `undefined` | Text or URL to encode. URL-encode values that contain `?`, `&`, or `=`. |
+| `scale` | `3` | Image scale. Must be between `1` and `10`. |
+| `padding` | `0` | Image padding. Must be between `0` and `100`. |
+| `height` | varies | Optional barcode height. Must be between `1` and `200`. |
+| `includetext` | `false` | Use `true`, `1`, or a bare `?includetext` to show readable text where supported. |
+
+## Tests
+
+```bash
+npm test
+```
