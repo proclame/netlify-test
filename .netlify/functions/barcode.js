@@ -2,7 +2,7 @@ var bwipjs = require("bwip-js");
 
 exports.handler = async function(event, context, handler){
     let result;
-    const params = get_params(event.rawQuery);
+    const params = get_params(event.rawQueryString || event.rawQuery || '');
 
     const includetext = params.includetext ?? false;
 
@@ -23,7 +23,7 @@ exports.handler = async function(event, context, handler){
 
 
 
-    barcode = await bwipjs.toBuffer(opts)
+    await bwipjs.toBuffer(opts)
     .then(png => {
        result = png;
     })
@@ -44,15 +44,13 @@ exports.handler = async function(event, context, handler){
 
 
 
-function get_params (rawQueryString){
-
+function get_params(rawQueryString) {
   const params = {};
-  const queryString = rawQueryString.split('&');
+  const queryString = new URLSearchParams(rawQueryString);
 
-  queryString.forEach(item => {
-    const kv = item.split('=')
-    if (kv[0]) params[kv[0]] = kv[1] || true
-  });
+  for (const [key, value] of queryString.entries()) {
+    if (key) params[key] = value || true;
+  }
 
   return params;
 }
