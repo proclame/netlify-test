@@ -1,6 +1,6 @@
 var bwipjs = require("bwip-js");
 
-exports.handler = async function(event, context, handler){
+exports.handler = async function(event) {
     const params = get_params(event.rawQueryString || event.rawQuery || '');
 
     const includetext = parse_boolean(params.includetext);
