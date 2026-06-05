@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/proclame/netlify-test#readme",
   "dependencies": {
-    "bwip-js": "^3.0.4"
+    "bwip-js": "^4.11.1"
   }
 }
