@@ -37,7 +37,8 @@ exports.handler = async function(event) {
         statusCode: 200,
         headers: {
             'Content-Type': 'image/png',
-            'Cache-Control': 'private, max-age=2592000, immutable',
+            'Cache-Control': 'public, max-age=2592000, immutable',
+            'Netlify-CDN-Cache-Control': 'public, s-maxage=2592000, immutable',
         },
         body: result.toString('base64'),
         isBase64Encoded: true

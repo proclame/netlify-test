@@ -12,6 +12,8 @@ async function testValidPngResponse() {
 
   assert.strictEqual(response.statusCode, 200);
   assert.strictEqual(response.headers['Content-Type'], 'image/png');
+  assert.strictEqual(response.headers['Cache-Control'], 'public, max-age=2592000, immutable');
+  assert.strictEqual(response.headers['Netlify-CDN-Cache-Control'], 'public, s-maxage=2592000, immutable');
   assert.strictEqual(response.isBase64Encoded, true);
   assert.strictEqual(png.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
 }
